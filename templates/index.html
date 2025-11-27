@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Yield Prediction - Eastern Pune</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 201, 240, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .icon-rice {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            color: #2c5364;
+            font-weight: 700;
+            font-size: 36px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            font-weight: 300;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c5364;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #4cc9f0;
+            box-shadow: 0 0 0 4px rgba(76, 201, 240, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+            box-shadow: 0 10px 30px rgba(76, 201, 240, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(76, 201, 240, 0.5);
+        }
+        
+        button:active {
+            transform: translateY(-1px);
+        }
+        
+        .result {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 2px solid #4cc9f0;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result h2 {
+            color: #2c5364;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .result-value {
+            color: #2c5364;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        
+        .status-card {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .status-card .result-value {
+            font-size: 32px;
+        }
+        
+        .surplus {
+            color: #10b981;
+        }
+        
+        .deficit {
+            color: #ef4444;
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid #ef4444;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c5364;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .member-card {
+            background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(76, 201, 240, 0.5);
+        }
+        
+        .project-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon-rice">🌾</div>
+            <h1>Rice Yield Prediction</h1>
+            <p class="subtitle">Eastern Pune Region • ML-Powered Analysis</p>
+        </div>
+        
+        <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="rainfall">Rainfall</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🌧️</span>
+                    <input type="number" step="0.01" name="rainfall" id="rainfall" 
+                           value="{{ rainfall }}" placeholder="Enter rainfall in mm" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="humidity">Humidity</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">💧</span>
+                    <input type="number" step="0.01" name="humidity" id="humidity" 
+                           value="{{ humidity }}" placeholder="Enter humidity in %" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="windspeed">Windspeed</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">💨</span>
+                    <input type="number" step="0.01" name="windspeed" id="windspeed" 
+                           value="{{ windspeed }}" placeholder="Enter windspeed in km/h" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="temperature">Temperature</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🌡️</span>
+                    <input type="number" step="0.01" name="temperature" id="temperature" 
+                           value="{{ temperature }}" placeholder="Enter temperature in °C" required>
+                </div>
+            </div>
+            
+            <button type="submit">🔮 Predict Yield</button>
+        </form>
+        
+        {% if prediction %}
+        <div class="result">
+            <h2>📊 Prediction Results</h2>
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="result-label">Predicted Yield</div>
+                    <div class="result-value">{{ prediction }} kg/ha</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Total Production</div>
+                    <div class="result-value">{{ total_production }} kg</div>
+                </div>
+                <div class="result-card status-card">
+                    <div class="result-label">Regional Status</div>
+                    <div class="result-value {% if status == 'SURPLUS' %}surplus{% else %}deficit{% endif %}">
+                        {% if status == 'SURPLUS' %}✅{% else %}⚠️{% endif %} {{ status }}
+                    </div>
+                    <div style="margin-top: 10px; font-size: 16px; color: #666;">
+                        {{ difference }} kg difference
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if error %}
+        <div class="error">
+            ⚠️ Error: {{ error }}
+        </div>
+        {% endif %}
+        
+        <div class="footer">
+            <div class="footer-title">🎓 Project Team</div>
+            <div class="team-members">
+                <div class="member-card">Prathmesh Dahibhate</div>
+                <div class="member-card">Pratha Asthiekar</div>
+                <div class="member-card">Pranjali Shinde</div>
+                <div class="member-card">Om Pustole</div>
+                <div class="member-card">Vaishnavi Purbe</div>
+            </div>
+            <div class="project-info">
+                Made By VIT PUNE || ASEP PROJECT - 2025
+            </div>
+        </div>
+    </div>
+</body>
+</html>
