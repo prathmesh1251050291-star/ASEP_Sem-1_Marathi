@@ -6,7 +6,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load the trained model
-with open('rice_yield_model.pkl', 'rb') as f:
+with open('ASEP_Crop.pkl', 'rb') as f:
     model = pickle.load(f)
 
 @app.route('/')
