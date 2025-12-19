@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rice Yield Prediction - Eastern Pune</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
@@ -21,7 +22,7 @@
             position: relative;
             overflow-x: hidden;
         }
-        
+
         body::before {
             content: '';
             position: fixed;
@@ -34,12 +35,17 @@
             animation: moveGrid 20s linear infinite;
             z-index: 0;
         }
-        
+
         @keyframes moveGrid {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
         }
-        
+
         .container {
             max-width: 700px;
             margin: 50px auto;
@@ -52,47 +58,61 @@
             z-index: 1;
             animation: fadeIn 0.8s ease-in;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 40px;
         }
-        
+
         .icon-rice {
             font-size: 60px;
             margin-bottom: 15px;
             animation: bounce 2s infinite;
         }
-        
+
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
-        
+
         h1 {
             color: #2c5364;
             font-weight: 700;
             font-size: 36px;
             margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .subtitle {
             color: #666;
             font-size: 16px;
             font-weight: 300;
         }
-        
+
         .form-group {
             margin-bottom: 25px;
             position: relative;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
@@ -102,11 +122,11 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        
+
         .input-wrapper {
             position: relative;
         }
-        
+
         .input-icon {
             position: absolute;
             left: 15px;
@@ -114,8 +134,9 @@
             transform: translateY(-50%);
             font-size: 20px;
         }
-        
-        input {
+
+        input,
+        select {
             width: 100%;
             padding: 15px 15px 15px 50px;
             border: 2px solid #e0e0e0;
@@ -124,15 +145,20 @@
             font-family: 'Poppins', sans-serif;
             transition: all 0.3s ease;
             background: white;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
         }
-        
-        input:focus {
+
+        input:focus,
+        select:focus {
             outline: none;
             border-color: #4cc9f0;
             box-shadow: 0 0 0 4px rgba(76, 201, 240, 0.1);
             transform: translateY(-2px);
         }
-        
+
         button {
             width: 100%;
             padding: 18px;
@@ -149,16 +175,16 @@
             margin-top: 10px;
             box-shadow: 0 10px 30px rgba(76, 201, 240, 0.4);
         }
-        
+
         button:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(76, 201, 240, 0.5);
         }
-        
+
         button:active {
             transform: translateY(-1px);
         }
-        
+
         .result {
             margin-top: 40px;
             padding: 30px;
@@ -167,12 +193,19 @@
             border: 2px solid #4cc9f0;
             animation: slideIn 0.5s ease-out;
         }
-        
+
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .result h2 {
             color: #2c5364;
             margin-bottom: 20px;
@@ -180,25 +213,25 @@
             text-align: center;
             font-weight: 700;
         }
-        
+
         .result-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
-        
+
         .result-card {
             background: white;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-        
+
         .result-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .result-label {
             font-weight: 600;
             color: #666;
@@ -207,31 +240,31 @@
             letter-spacing: 0.5px;
             margin-bottom: 8px;
         }
-        
+
         .result-value {
             color: #2c5364;
             font-size: 22px;
             font-weight: 700;
         }
-        
+
         .status-card {
             grid-column: 1 / -1;
             text-align: center;
             padding: 25px;
         }
-        
+
         .status-card .result-value {
             font-size: 32px;
         }
-        
+
         .surplus {
             color: #10b981;
         }
-        
+
         .deficit {
             color: #ef4444;
         }
-        
+
         .error {
             background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
             color: #991b1b;
@@ -241,14 +274,14 @@
             border-left: 5px solid #ef4444;
             font-weight: 500;
         }
-        
+
         .footer {
             margin-top: 40px;
             padding-top: 30px;
             border-top: 2px solid #e0e0e0;
             text-align: center;
         }
-        
+
         .footer-title {
             font-size: 18px;
             font-weight: 700;
@@ -257,14 +290,14 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        
+
         .team-members {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-        
+
         .member-card {
             background: linear-gradient(135deg, #4cc9f0 0%, #4361ee 100%);
             color: white;
@@ -275,38 +308,39 @@
             box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
             transition: all 0.3s ease;
         }
-        
+
         .member-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(76, 201, 240, 0.5);
         }
-        
+
         .project-info {
             margin-top: 20px;
             font-size: 14px;
             color: #666;
             font-weight: 600;
         }
-        
+
         @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
             }
-            
+
             h1 {
                 font-size: 28px;
             }
-            
+
             .result-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .team-members {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -314,47 +348,81 @@
             <h1>Rice Yield Prediction</h1>
             <p class="subtitle">Eastern Pune Region • ML-Powered Analysis</p>
         </div>
-        
+
         <form method="POST" action="/predict">
+            <div class="form-group">
+                <label for="district">District</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🏙️</span>
+                    <select name="district" id="district" required>
+                        <option value="Pune">Pune</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="taluka">Taluka</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">📍</span>
+                    <select name="taluka" id="taluka" required>
+                        <option value="" disabled selected>Select Taluka</option>
+                        <option value="Ambegaon">Ambegaon</option>
+                        <option value="Baramati">Baramati</option>
+                        <option value="Bhor">Bhor</option>
+                        <option value="Daund">Daund</option>
+                        <option value="Haveli">Haveli</option>
+                        <option value="Indapur">Indapur</option>
+                        <option value="Junnar">Junnar</option>
+                        <option value="Khed">Khed</option>
+                        <option value="Maval">Maval</option>
+                        <option value="Mulshi">Mulshi</option>
+                        <option value="Pune City">Pune City</option>
+                        <option value="Purandar">Purandar</option>
+                        <option value="Shirur">Shirur</option>
+                        <option value="Velhe">Velhe</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="rainfall">Rainfall</label>
                 <div class="input-wrapper">
                     <span class="input-icon">🌧️</span>
-                    <input type="number" step="0.01" name="rainfall" id="rainfall" 
-                           value="{{ rainfall }}" placeholder="Enter rainfall in mm" required>
+                    <input type="number" step="0.01" name="rainfall" id="rainfall" value="{{ rainfall }}"
+                        placeholder="Enter rainfall in mm" required>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="humidity">Humidity</label>
                 <div class="input-wrapper">
                     <span class="input-icon">💧</span>
-                    <input type="number" step="0.01" name="humidity" id="humidity" 
-                           value="{{ humidity }}" placeholder="Enter humidity in %" required>
+                    <input type="number" step="0.01" name="humidity" id="humidity" value="{{ humidity }}"
+                        placeholder="Enter humidity in %" required>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="windspeed">Windspeed</label>
                 <div class="input-wrapper">
                     <span class="input-icon">💨</span>
-                    <input type="number" step="0.01" name="windspeed" id="windspeed" 
-                           value="{{ windspeed }}" placeholder="Enter windspeed in km/h" required>
+                    <input type="number" step="0.01" name="windspeed" id="windspeed" value="{{ windspeed }}"
+                        placeholder="Enter windspeed in km/h" required>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="temperature">Temperature</label>
                 <div class="input-wrapper">
                     <span class="input-icon">🌡️</span>
-                    <input type="number" step="0.01" name="temperature" id="temperature" 
-                           value="{{ temperature }}" placeholder="Enter temperature in °C" required>
+                    <input type="number" step="0.01" name="temperature" id="temperature" value="{{ temperature }}"
+                        placeholder="Enter temperature in °C" required>
                 </div>
             </div>
-            
+
             <button type="submit">🔮 Predict Yield</button>
         </form>
-        
+
         {% if prediction %}
         <div class="result">
             <h2>📊 Prediction Results</h2>
@@ -379,13 +447,13 @@
             </div>
         </div>
         {% endif %}
-        
+
         {% if error %}
         <div class="error">
             ⚠️ Error: {{ error }}
         </div>
         {% endif %}
-        
+
         <div class="footer">
             <div class="footer-title">🎓 Project Team</div>
             <div class="team-members">
@@ -395,10 +463,68 @@
                 <div class="member-card">Om Pustole</div>
                 <div class="member-card">Vaishnavi Purbe</div>
             </div>
+
+            <div class="footer-title" style="margin-top: 30px;">👨‍🏫 Guidance By</div>
+            <div class="team-members" style="justify-content: center;">
+                <a href="https://in.linkedin.com/in/rahul-joshi-11622b125" target="_blank" class="member-card"
+                    style="text-decoration: none; display: inline-block; color: white;">Rahul Joshi</a>
+            </div>
+
             <div class="project-info">
                 Made By VIT PUNE || ASEP PROJECT - 2025
             </div>
         </div>
     </div>
+
+    <script>
+        const talukaData = {
+            "Ambegaon": { rainfall: 657, humidity: 70, windspeed: 12, temperature: 24.1 },
+            "Baramati": { rainfall: 500, humidity: 50, windspeed: 14, temperature: 26.0 },
+            "Bhor": { rainfall: 689, humidity: 70, windspeed: 12, temperature: 24.0 },
+            "Daund": { rainfall: 695, humidity: 50, windspeed: 12, temperature: 27.0 },
+            "Haveli": { rainfall: 700, humidity: 65, windspeed: 10, temperature: 25.0 },
+            "Indapur": { rainfall: 584, humidity: 50, windspeed: 12, temperature: 27.0 },
+            "Junnar": { rainfall: 750, humidity: 60, windspeed: 12, temperature: 25.0 },
+            "Khed": { rainfall: 650, humidity: 65, windspeed: 12, temperature: 25.0 },
+            "Maval": { rainfall: 1200, humidity: 75, windspeed: 15, temperature: 23.0 },
+            "Mulshi": { rainfall: 2000, humidity: 80, windspeed: 15, temperature: 24.0 },
+            "Pune City": { rainfall: 722, humidity: 66, windspeed: 10, temperature: 27.9 },
+            "Purandar": { rainfall: 600, humidity: 60, windspeed: 12, temperature: 25.0 },
+            "Shirur": { rainfall: 498, humidity: 55, windspeed: 12, temperature: 25.4 },
+            "Velhe": { rainfall: 2500, humidity: 85, windspeed: 15, temperature: 23.0 }
+        };
+
+        const talukaSelect = document.getElementById('taluka');
+        const rainfallInput = document.getElementById('rainfall');
+        const humidityInput = document.getElementById('humidity');
+        const windspeedInput = document.getElementById('windspeed');
+        const temperatureInput = document.getElementById('temperature');
+
+        talukaSelect.addEventListener('change', function () {
+            const selectedTaluka = this.value;
+            const data = talukaData[selectedTaluka];
+
+            if (data) {
+                // Animate the values update
+                updateValue(rainfallInput, data.rainfall);
+                updateValue(humidityInput, data.humidity);
+                updateValue(windspeedInput, data.windspeed);
+                updateValue(temperatureInput, data.temperature);
+            }
+        });
+
+        function updateValue(element, finalValue) {
+            // Visual feedback effect
+            element.style.transform = 'scale(1.05)';
+            element.style.borderColor = '#4cc9f0';
+            element.value = finalValue;
+
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+                element.style.borderColor = '#e0e0e0';
+            }, 200);
+        }
+    </script>
 </body>
+
 </html>
