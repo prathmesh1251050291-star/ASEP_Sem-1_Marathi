@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rice Yield Prediction - Eastern Pune</title>
+    <title>तांदूळ उत्पादन अंदाज - पूर्व पुणे</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
@@ -74,6 +74,13 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px auto;
+            width: 150px;
+            height: auto;
         }
 
         .icon-rice {
@@ -342,106 +349,108 @@
 </head>
 
 <body>
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Vishwakarma_Institute_of_Technology_Logo.svg/1200px-Vishwakarma_Institute_of_Technology_Logo.svg.png"
+        alt="VIT Pune Logo" class="logo" style="margin-top: 20px;">
     <div class="container">
         <div class="header">
             <div class="icon-rice">🌾</div>
-            <h1>Rice Yield Prediction</h1>
-            <p class="subtitle">Eastern Pune Region • ML-Powered Analysis</p>
+            <h1>तांदूळ उत्पादन अंदाज</h1>
+            <p class="subtitle">पूर्व पुणे विभाग • मशीन लर्निंग विश्लेषण</p>
         </div>
 
         <form method="POST" action="/predict">
             <div class="form-group">
-                <label for="district">District</label>
+                <label for="district">जिल्हा (District)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">🏙️</span>
                     <select name="district" id="district" required>
-                        <option value="Pune">Pune</option>
+                        <option value="Pune">पुणे (Pune)</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="taluka">Taluka</label>
+                <label for="taluka">तालुका (Taluka)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">📍</span>
                     <select name="taluka" id="taluka" required>
-                        <option value="" disabled selected>Select Taluka</option>
-                        <option value="Ambegaon">Ambegaon</option>
-                        <option value="Baramati">Baramati</option>
-                        <option value="Bhor">Bhor</option>
-                        <option value="Daund">Daund</option>
-                        <option value="Haveli">Haveli</option>
-                        <option value="Indapur">Indapur</option>
-                        <option value="Junnar">Junnar</option>
-                        <option value="Khed">Khed</option>
-                        <option value="Maval">Maval</option>
-                        <option value="Mulshi">Mulshi</option>
-                        <option value="Pune City">Pune City</option>
-                        <option value="Purandar">Purandar</option>
-                        <option value="Shirur">Shirur</option>
-                        <option value="Velhe">Velhe</option>
+                        <option value="" disabled selected>तालुका निवडा</option>
+                        <option value="Ambegaon">आंबेगाव (Ambegaon)</option>
+                        <option value="Baramati">बारामती (Baramati)</option>
+                        <option value="Bhor">भोर (Bhor)</option>
+                        <option value="Daund">दौंड (Daund)</option>
+                        <option value="Haveli">हवेली (Haveli)</option>
+                        <option value="Indapur">इंदापूर (Indapur)</option>
+                        <option value="Junnar">जुन्नर (Junnar)</option>
+                        <option value="Khed">खेड (Khed)</option>
+                        <option value="Maval">मावळ (Maval)</option>
+                        <option value="Mulshi">मुळशी (Mulshi)</option>
+                        <option value="Pune City">पुणे शहर (Pune City)</option>
+                        <option value="Purandar">पुरंदर (Purandar)</option>
+                        <option value="Shirur">शिरूर (Shirur)</option>
+                        <option value="Velhe">वेल्हे (Velhe)</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="rainfall">Rainfall</label>
+                <label for="rainfall">पर्जन्यमान (Rainfall)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">🌧️</span>
                     <input type="number" step="0.01" name="rainfall" id="rainfall" value="{{ rainfall }}"
-                        placeholder="Enter rainfall in mm" required>
+                        placeholder="पर्जन्यमान (mm)" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="humidity">Humidity</label>
+                <label for="humidity">आर्द्रता (Humidity)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">💧</span>
                     <input type="number" step="0.01" name="humidity" id="humidity" value="{{ humidity }}"
-                        placeholder="Enter humidity in %" required>
+                        placeholder="आर्द्रता (%)" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="windspeed">Windspeed</label>
+                <label for="windspeed">वाऱ्याचा वेग (Windspeed)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">💨</span>
                     <input type="number" step="0.01" name="windspeed" id="windspeed" value="{{ windspeed }}"
-                        placeholder="Enter windspeed in km/h" required>
+                        placeholder="वाऱ्याचा वेग (km/h)" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="temperature">Temperature</label>
+                <label for="temperature">तापमान (Temperature)</label>
                 <div class="input-wrapper">
                     <span class="input-icon">🌡️</span>
                     <input type="number" step="0.01" name="temperature" id="temperature" value="{{ temperature }}"
-                        placeholder="Enter temperature in °C" required>
+                        placeholder="तापमान (°C)" required>
                 </div>
             </div>
 
-            <button type="submit">🔮 Predict Yield</button>
+            <button type="submit">🔮 उत्पादन अंदाज</button>
         </form>
 
         {% if prediction %}
         <div class="result">
-            <h2>📊 Prediction Results</h2>
+            <h2>📊 अंदाज निकाल</h2>
             <div class="result-grid">
                 <div class="result-card">
-                    <div class="result-label">Predicted Yield</div>
+                    <div class="result-label">अंदाजित उत्पादन (Predicted Yield)</div>
                     <div class="result-value">{{ prediction }} kg/ha</div>
                 </div>
                 <div class="result-card">
-                    <div class="result-label">Total Production</div>
+                    <div class="result-label">एकूण उत्पादन (Total Production)</div>
                     <div class="result-value">{{ total_production }} kg</div>
                 </div>
                 <div class="result-card status-card">
-                    <div class="result-label">Regional Status</div>
+                    <div class="result-label">प्रादेशिक स्थिती (Status)</div>
                     <div class="result-value {% if status == 'SURPLUS' %}surplus{% else %}deficit{% endif %}">
                         {% if status == 'SURPLUS' %}✅{% else %}⚠️{% endif %} {{ status }}
                     </div>
                     <div style="margin-top: 10px; font-size: 16px; color: #666;">
-                        {{ difference }} kg difference
+                        {{ difference }} kg फरक (Difference)
                     </div>
                 </div>
             </div>
@@ -450,28 +459,28 @@
 
         {% if error %}
         <div class="error">
-            ⚠️ Error: {{ error }}
+            ⚠️ त्रुटी (Error): {{ error }}
         </div>
         {% endif %}
 
         <div class="footer">
-            <div class="footer-title">🎓 Project Team</div>
+            <div class="footer-title">🎓 प्रकल्प टीम</div>
             <div class="team-members">
-                <div class="member-card">Prathmesh Dahibhate</div>
-                <div class="member-card">Pratha Asthiekar</div>
-                <div class="member-card">Pranjali Shinde</div>
-                <div class="member-card">Om Pustole</div>
-                <div class="member-card">Vaishnavi Purbe</div>
+                <div class="member-card">प्रथमेश दहिभाते</div>
+                <div class="member-card">प्रथा अस्थिएकर</div>
+                <div class="member-card">प्रांजली शिंदे</div>
+                <div class="member-card">ओम पुस्टोले</div>
+                <div class="member-card">वैष्णवी पूर्वे</div>
             </div>
 
-            <div class="footer-title" style="margin-top: 30px;">👨‍🏫 Guidance By</div>
+            <div class="footer-title" style="margin-top: 30px;">👨‍🏫 मार्गदर्शन</div>
             <div class="team-members" style="justify-content: center;">
                 <a href="https://in.linkedin.com/in/rahul-joshi-11622b125" target="_blank" class="member-card"
-                    style="text-decoration: none; display: inline-block; color: white;">Rahul Joshi</a>
+                    style="text-decoration: none; display: inline-block; color: white;">राहुल जोशी</a>
             </div>
 
             <div class="project-info">
-                Made By VIT PUNE || ASEP PROJECT - 2025
+                VIT पुणे द्वारे तयार केलेले || ASEP प्रकल्प - २०२५
             </div>
         </div>
     </div>
